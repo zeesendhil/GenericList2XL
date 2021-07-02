@@ -16,42 +16,21 @@ namespace GenericList2XL
             List<Part> parts = new List<Part>();
 
             // Add parts to the list.
-            parts.Add(new Part() { PartName = "crank arm", PartId = 1234 });
-            parts.Add(new Part() { PartName = "chain ring", PartId = 1334 });
-            parts.Add(new Part() { PartName = "regular seat", PartId = 1434 });
-            parts.Add(new Part() { PartName = "banana seat", PartId = 1444 });
-            parts.Add(new Part() { PartName = "cassette", PartId = 1534 });
-            parts.Add(new Part() { PartName = "shift lever", PartId = 1634 });
+            parts.Add(new Part() { PartId = 1234 , PartName = "Test1 arm", PartAmount=3232});
+            parts.Add(new Part() { PartId = 1334, PartName = "chain ring", PartAmount = 3232 });
+            parts.Add(new Part() { PartId = 1434, PartName = "regular seat", PartAmount = 3232 });
+            parts.Add(new Part() { PartId = 1444, PartName = "banana seat", PartAmount = 3232 });
+            parts.Add(new Part() { PartId = 1534,PartName = "cassette", PartAmount = 3232 });
+            parts.Add(new Part() { PartId = 1634, PartName = "shift lever", PartAmount = 3232 });
             XportExcel(GetDataTable.ToDataTable(parts));
         }
 
-        public class Part : IEquatable<Part>
+        public class Part
         {
-            public string PartName { get; set; }
-
             public int PartId { get; set; }
 
-            public override string ToString()
-            {
-                return "ID: " + PartId + "   Name: " + PartName;
-            }
-            public override bool Equals(object obj)
-            {
-                if (obj == null) return false;
-                Part objAsPart = obj as Part;
-                if (objAsPart == null) return false;
-                else return Equals(objAsPart);
-            }
-            public override int GetHashCode()
-            {
-                return PartId;
-            }
-            public bool Equals(Part other)
-            {
-                if (other == null) return false;
-                return (this.PartId.Equals(other.PartId));
-            }
-            // Should also override == and != operators.
+            public string PartName { get; set; }
+            public double PartAmount { get; set; }
         }
 
         public static void XportExcel(DataTable Tbl)
@@ -85,7 +64,7 @@ namespace GenericList2XL
                 }
             }
 
-            xlWorkSheetRange = xlWorkSheet.Rows.get_Range("1:" + Tbl.Columns.Count, "1:" + Tbl.Columns.Count);
+            xlWorkSheetRange = xlWorkSheet.Rows.get_Range("1:1");
             xlWorkSheetRange.Select();
 
             xlWorkSheetRange.Font.Bold = true;
